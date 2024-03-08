@@ -98,6 +98,23 @@ async function vscodeSelect(word: string): Promise<string | undefined> {
   return selections.label;
 }
 
+function isChineseMoreThanEnglish(text: string): boolean {
+  let chineseCount = 0;
+  let englishCount = 0;
+
+  // 遍历文本中的每个字符
+  for (const char of text) {
+      // 使用 Unicode 范围匹配中文字符
+      if (/\p{Script=Han}/u.test(char)) {
+          chineseCount++;
+      } else if (/[a-zA-Z]/.test(char)) {
+          englishCount++;
+      }
+  }
+
+  return chineseCount > englishCount;
+}
+
 /**
  * 获取翻译引起
  */
@@ -113,8 +130,8 @@ async function getTranslateResult(srcText: string) {
   }
   const translate = translatePlatforms[engine] || translatePlatforms.google;
   let to = 'en'
-  // 正则快速判断英文
-  if (/^[a-zA-Z\d\s\/\-\._]+$/.test(srcText)) {
+  // 判断英文
+  if (!isChineseMoreThanEnglish(srcText)) {
     to = 'zh'
   }
   try {
