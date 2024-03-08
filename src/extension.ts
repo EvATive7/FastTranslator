@@ -66,11 +66,11 @@ const checkUpdate = async (context: ExtensionContext) => {
 };
 export function activate(context: ExtensionContext) {
   checkUpdate(context);
-  const translation = commands.registerCommand('extension.varTranslation', main);
+  const translation = commands.registerCommand('extension.fastTranslator', main);
   context.subscriptions.push(translation);
   changeCaseMap.forEach((item) => {
     context.subscriptions.push(
-      commands.registerCommand(`extension.varTranslation.${item.name}`, () =>
+      commands.registerCommand(`extension.fastTranslator.${item.name}`, () =>
         typeTranslation(item.name),
       ),
     );
@@ -103,7 +103,7 @@ async function vscodeSelect(word: string): Promise<string | undefined> {
  */
 
 async function getTranslateResult(srcText: string) {
-  const engine: EengineType = workspace.getConfiguration('varTranslation').translationEngine;
+  const engine: EengineType = workspace.getConfiguration('fastTranslator').translationEngine;
   const cache = translateCacheWords.find(
     (item) => item.engine === engine && item.srcText === srcText,
   );

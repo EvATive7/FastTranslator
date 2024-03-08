@@ -19,7 +19,7 @@ export enum EengineType {
 }
 const getSecret = (engineType: EengineType, secretName: string) => {
   // 获取配置中的密钥字符串，分割为两个部分
-  const [part1, part2] = workspace.getConfiguration('varTranslation')[secretName].split(',');
+  const [part1, part2] = workspace.getConfiguration('fastTranslator')[secretName].split(',');
   // 如果没有配置密钥，提示用户
   if (!part1 || !part2) window.showInformationMessage(`${engineType}翻译未配置，请先在设置中配置`);
   // 返回密钥的两个部分
@@ -31,7 +31,7 @@ const engines = {
   // 谷歌翻译引擎
   google(src: string, to: string) {
     // 获取配置中的谷歌域名后缀，默认为com
-    const tld = workspace.getConfiguration('varTranslation').googleTld || 'com';
+    const tld = workspace.getConfiguration('fastTranslator').googleTld || 'com';
     // 调用谷歌翻译接口，返回结果
     return google(src, { to, tld });
   },
@@ -65,7 +65,7 @@ const engines = {
     return { text: res.TargetText };
   },
   async ChatGpt(src: string, to: string) {
-    const { apiKey, apiBaseUrl } = workspace.getConfiguration('varTranslation').openai;
+    const { apiKey, apiBaseUrl } = workspace.getConfiguration('fastTranslator').openai;
     if (!apiKey) window.showInformationMessage('openai Api Key未配置 请先在设置中配置');
     let openai = (engines as any).ChatGpt.instance;
 
@@ -89,7 +89,7 @@ const engines = {
   },
   // libretranslate 翻译
   async libretranslate(src: string, to: string) {
-    const { apiBaseUrl, apiKey } = workspace.getConfiguration('varTranslation').libretranslate;
+    const { apiBaseUrl, apiKey } = workspace.getConfiguration('fastTranslator').libretranslate;
     let libretranslate = (engines as any).libretranslate.instance;
 
     if (!libretranslate) {
