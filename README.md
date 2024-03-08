@@ -1,6 +1,6 @@
-# [驼峰翻译助手](https://marketplace.visualstudio.com/items?itemName=svenzhao.var-translation)
+# [快速翻译器](https://marketplace.visualstudio.com/items?itemName=evative7.fast-translator)
 
-[有问题直接报 issue](https://github.com/SvenZhao/var-translation/issues)
+[有问题直接报 issue](https://github.com/EvATive7/FastTranslator/issues)
 
 ```
 更新了免费的谷歌翻译引擎

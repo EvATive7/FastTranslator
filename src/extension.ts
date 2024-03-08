@@ -28,6 +28,9 @@ interface IWordResult {
   srcText: string;
   result: string;
 }
+function plain(str:string) {
+  return str
+}
 /** 翻译的内容缓存防止多次请求 */
 const translateCacheWords: IWordResult[] = [];
 const changeCaseMap = [
@@ -41,6 +44,7 @@ const changeCaseMap = [
   { name: 'dotCase', handle: dotCase, description: 'dotCase 对象属性' },
   { name: 'pathCase', handle: pathCase, description: 'pathCase 文件路径' },
   { name: 'constantCase', handle: constantCase, description: 'constantCase 常量' },
+  { name: 'plain', handle: plain, description: '纯文本' },
 ];
 let packageJSON: any;
 const checkUpdate = async (context: ExtensionContext) => {
@@ -108,14 +112,15 @@ async function getTranslateResult(srcText: string) {
     return Promise.resolve(cache.result);
   }
   const translate = translatePlatforms[engine] || translatePlatforms.google;
+  let to = 'en'
   // 正则快速判断英文
   if (/^[a-zA-Z\d\s\/\-\._]+$/.test(srcText)) {
-    return srcText;
+    to = 'zh'
   }
   try {
     // window.showQuickPick([{ label: "网络翻译中..." }]);
     window.setStatusBarMessage(`${packageJSON.displayName}正在翻译:${srcText}`, 2000);
-    const res = await translate(srcText, 'en');
+    const res = await translate(srcText, to);
     const result = res.text;
     if (result) {
       translateCacheWords.push({ engine, srcText, result });

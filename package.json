@@ -1,8 +1,8 @@
 {
-  "name": "var-translation",
-  "displayName": "驼峰翻译助手",
+  "name": "fast-translator",
+  "displayName": "快速翻译器",
   "description": "纠结怎么取变量? 中文一键翻译转换成常用大小驼峰等格式",
-  "publisher": "svenzhao",
+  "publisher": "evative7",
   "icon": "images/logo.png",
   "version": "0.13.50",
   "engines": {
@@ -37,67 +37,73 @@
         "command": "extension.varTranslation",
         "title": "驼峰翻译选择翻译",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.camelCase",
         "title": "camelCase 驼峰(小) camelCase",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.pascalCase",
         "title": "pascalCase 驼峰(大) PascalCase",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.paramCase",
         "title": "paramCase 中划线(小) param-case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.snakeCase",
         "title": "snakeCase 下划线 snake_case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.constantCase",
         "title": "constantCase 常量 CONSTANT_CASE",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.capitalCase",
         "title": "capitalCase 分词(大) Capital Case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.dotCase",
         "title": "dotCase 对象属性 dot case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.headerCase",
         "title": "headerCase 中划线(大) Header-Case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.noCase",
         "title": "noCase 分词(小) no case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
       },
       {
         "command": "extension.varTranslation.pathCase",
         "title": "pathCase 文件路径 path/case",
         "when": "editorTextFocus",
-        "category": "var-translation"
+        "category": "fast-translator"
+      },
+      {
+        "command": "extension.varTranslation.plain",
+        "title": "plain 纯文本 Plain",
+        "when": "editorTextFocus",
+        "category": "fast-translator"
       }
     ],
     "menus": {
@@ -210,9 +216,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SvenZhao/var-translation"
+    "url": "https://github.com/EvATive7/FastTranslator"
   },
-  "homepage": "https://github.com/SvenZhao/var-translation/blob/master/README.md",
+  "homepage": "https://github.com/EvATive7/FastTranslator/blob/master/README.md",
   "husky": {
     "hooks": {
       "pre-commit": "f2elint commit-file-scan",
