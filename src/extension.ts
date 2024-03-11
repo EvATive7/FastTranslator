@@ -28,7 +28,7 @@ interface IWordResult {
   srcText: string;
   result: string;
 }
-function plain(str:string) {
+function plain(str: string) {
   return str
 }
 /** 翻译的内容缓存防止多次请求 */
@@ -76,7 +76,7 @@ export function activate(context: ExtensionContext) {
     );
   });
 }
-export function deactivate() {}
+export function deactivate() { }
 /**
  * 用户选择选择转换形式
  * @param word 需要转换的单词
@@ -98,21 +98,27 @@ async function vscodeSelect(word: string): Promise<string | undefined> {
   return selections.label;
 }
 
-function isChineseMoreThanEnglish(text: string): boolean {
+function getto(text: string): any {
   let chineseCount = 0;
   let englishCount = 0;
 
   // 遍历文本中的每个字符
   for (const char of text) {
-      // 使用 Unicode 范围匹配中文字符
-      if (/\p{Script=Han}/u.test(char)) {
-          chineseCount++;
-      } else if (/[a-zA-Z]/.test(char)) {
-          englishCount++;
-      }
+    // 使用 Unicode 范围匹配中文字符
+    if (/\p{Script=Han}/u.test(char)) {
+      chineseCount++;
+    } else if (/[a-zA-Z]/.test(char)) {
+      englishCount++;
+    }
   }
 
-  return chineseCount > englishCount;
+  if (chineseCount === 0){
+    return 'zh'
+  }
+  if (englishCount === 0){
+    return 'en'
+  }
+  return 'und'
 }
 
 /**
@@ -129,11 +135,7 @@ async function getTranslateResult(srcText: string) {
     return Promise.resolve(cache.result);
   }
   const translate = translatePlatforms[engine] || translatePlatforms.google;
-  let to = 'en'
-  // 判断英文
-  if (!isChineseMoreThanEnglish(srcText)) {
-    to = 'zh'
-  }
+  const to = getto(srcText)
   try {
     // window.showQuickPick([{ label: "网络翻译中..." }]);
     window.setStatusBarMessage(`${packageJSON.displayName}正在翻译:${srcText}`, 2000);

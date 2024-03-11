@@ -58,7 +58,26 @@ const engines = {
       profile: { httpProfile: { endpoint: 'tmt.tencentcloudapi.com' } },
     };
     const tencent = (engines as any).tencent.instance || new TmtClient(clientConfig);
+
     (engines as any).tencent.instance = tencent;
+
+    if (to === 'und'){
+      const _p = { Text: src, ProjectId: 0 };
+      const _res = await tencent.LanguageDetect(_p);
+      const _detlang = _res.Lang;
+      switch (_detlang) {
+        case 'zh':
+          to = 'en'
+          break;
+        case 'en':
+          to = 'zh'
+          break;
+        default:
+          to = 'en'
+          break;
+      }
+    }
+    
     // 调用腾讯翻译接口，返回结果
     const params = { SourceText: src, Source: 'auto', Target: to, ProjectId: 0 };
     const res = await tencent.TextTranslate(params);
